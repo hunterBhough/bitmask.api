@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "wallets": [
+        {
+          "walletId": "123456789",
+          "privateKey": "EXAMPLE_PRIVATE_KEY",
+          "transactions": [
+            {
+              "shrotId": "1",
+              "dateCreated": "12-12-2012:12:12:12",
+              "transactionId": "334123124",
+              "bitmask": "1.100",
+              "cost": 0.00046,
+              "miningFee": 0.000005
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

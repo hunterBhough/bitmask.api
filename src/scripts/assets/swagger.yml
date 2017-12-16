@@ -1,0 +1,190 @@
+---
+swagger: "2.0"
+info:
+  title: Bitmask API
+  description: "An api for moving data between a form and the blockchain"
+  version: 1.0.0
+  contact:
+    name: Hunter Hough
+    email: hunter.hough@icf.com
+  license:
+    name: Apache 2.0
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+basePath: /v1
+schemes:
+- http
+paths:
+  /walletTransactions:
+      get:
+        summary: "get all records from the database for a particular user"
+        operationId:
+          getAllTransactions
+        produces:
+          - application/json
+        parameters:
+          - name: "walletId"
+            in: "query"
+            description: "Wallet Id"
+            type: "string"
+          - name: "privateKey"
+            in: "query"
+            description: "the password to the wallet"
+            type: "string"
+        responses:
+          200:
+            description: "successful operation"
+            schema:
+              type: "array"
+              items:
+                $ref: "#definitions/Question"
+          400:
+            description: Invalid or not enough inputs.
+            schema:
+              $ref: "#/definitions/Error"
+          429:
+            description: Too many requests.
+            schema:
+              $ref: "#/definitions/Error"
+  /getRecord:
+    get:
+      summary: "get all questions from the database for a particular record for the frontend"
+      operationId: getTransaction
+      produces:
+        - application/json
+      parameters:
+        - name: "walletId"
+          in: "query"
+          description: "Wallet Id"
+          type: "string"
+        - name: "privateKey"
+          in: "query"
+          description: "the password to the wallet"
+          type: "string"
+        - name: "transactionId"
+          description: "Id of the transaction"
+          in: "query"
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#definitions/Question"
+        400:
+          description: Invalid or not enough inputs.
+          schema:
+            $ref: "#/definitions/Error"
+        429:
+          description: Too many requests.
+          schema:
+            $ref: "#/definitions/Error"
+  /:
+    post:
+      summary: "endpoint to receive answers from the frontend; encrypt and send to blockchain; cache in db"
+      operationId: postAnswers
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: string
+        400:
+          description: Invalid or not enough inputs.
+          schema:
+            $ref: "#/definitions/Error"
+        429:
+          description: Too many requests.
+          schema:
+            $ref: "#/definitions/Error"
+definitions:
+  Wallet:
+    type: "object"
+    required:
+      - "id"
+      - "transactions"
+      - "privateKey"
+    properties:
+      id:
+        type: "string"
+      privateKey:
+        type: "string"
+      transactions:
+        type: "array"
+        items:
+          $ref: "#/definitions/Transaction"
+  Transaction:
+    type: "object"
+    required:
+      - "transactionId"
+      - "bitmask"
+      - "cost"
+      - "address"
+    properties:
+      shortId:
+        type: "integer"
+        format: "int"
+      transactionId:
+        type: "string"
+      dateCreated:
+        type: "string"
+      bitmask:
+        type: "number"
+        format: "float64"
+      cost:
+        type: "number"
+        format: "float64"
+      fee:
+        type: "number"
+        format: "number"
+      address:
+        type: "string"
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      wallets:
+        type: "array"
+        items:
+          $ref: "#/definitions/Wallet"
+  Question:
+    type: "object"
+    required:
+      - "id"
+      - "title"
+      - "content"
+    properties:
+      id:
+        type: "integer"
+        format: "int"
+      title:
+        type: "string"
+      content:
+        type: "string"
+      description:
+        type: "string"
+      Answer:
+        $ref: "#/definitions/Answer"
+  Answer:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int"
+      title:
+        type: "string"
+      content:
+        type: "string"
+      description:
+        type: "string"
+  Error:
+    type: "object"
+    properties:
+      status:
+        type: "number"
+      message:
+        type: "string"

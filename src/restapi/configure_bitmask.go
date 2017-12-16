@@ -16,7 +16,7 @@ import (
 
 // This file is safe to edit. Once it exists it will not be overwritten
 
-//go:generate swagger generate server --target .. --name Bitmask.API --spec ../scripts/assets/swagger.yml
+//go:generate swagger generate server --target .. --name bitmask.api --spec ../src/scripts/assets/swagger.yml
 
 func configureFlags(api *operations.BitmaskAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
@@ -36,6 +36,12 @@ func configureAPI(api *operations.BitmaskAPI) http.Handler {
 
 	api.JSONProducer = runtime.JSONProducer()
 
+	api.GetAllTransactionsHandler = operations.GetAllTransactionsHandlerFunc(func(params operations.GetAllTransactionsParams) middleware.Responder {
+		return middleware.NotImplemented("operation .GetAllTransactions has not yet been implemented")
+	})
+	api.GetTransactionHandler = operations.GetTransactionHandlerFunc(func(params operations.GetTransactionParams) middleware.Responder {
+		return middleware.NotImplemented("operation .GetTransaction has not yet been implemented")
+	})
 	api.PostAnswersHandler = operations.PostAnswersHandlerFunc(func(params operations.PostAnswersParams) middleware.Responder {
 		return middleware.NotImplemented("operation .PostAnswers has not yet been implemented")
 	})

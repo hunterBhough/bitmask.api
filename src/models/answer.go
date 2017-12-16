@@ -10,7 +10,6 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // Answer answer
@@ -18,8 +17,7 @@ import (
 type Answer struct {
 
 	// content
-	// Required: true
-	Content *string `json:"content"`
+	Content string `json:"content,omitempty"`
 
 	// description
 	Description string `json:"description,omitempty"`
@@ -35,23 +33,9 @@ type Answer struct {
 func (m *Answer) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateContent(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *Answer) validateContent(formats strfmt.Registry) error {
-
-	if err := validate.Required("content", "body", m.Content); err != nil {
-		return err
-	}
-
 	return nil
 }
 

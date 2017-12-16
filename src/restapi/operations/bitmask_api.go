@@ -35,6 +35,12 @@ func NewBitmaskAPI(spec *loads.Document) *BitmaskAPI {
 		BearerAuthenticator: security.BearerAuth,
 		JSONConsumer:        runtime.JSONConsumer(),
 		JSONProducer:        runtime.JSONProducer(),
+		GetAllTransactionsHandler: GetAllTransactionsHandlerFunc(func(params GetAllTransactionsParams) middleware.Responder {
+			return middleware.NotImplemented("operation GetAllTransactions has not yet been implemented")
+		}),
+		GetTransactionHandler: GetTransactionHandlerFunc(func(params GetTransactionParams) middleware.Responder {
+			return middleware.NotImplemented("operation GetTransaction has not yet been implemented")
+		}),
 		PostAnswersHandler: PostAnswersHandlerFunc(func(params PostAnswersParams) middleware.Responder {
 			return middleware.NotImplemented("operation PostAnswers has not yet been implemented")
 		}),
@@ -67,6 +73,10 @@ type BitmaskAPI struct {
 	// JSONProducer registers a producer for a "application/json" mime type
 	JSONProducer runtime.Producer
 
+	// GetAllTransactionsHandler sets the operation handler for the get all transactions operation
+	GetAllTransactionsHandler GetAllTransactionsHandler
+	// GetTransactionHandler sets the operation handler for the get transaction operation
+	GetTransactionHandler GetTransactionHandler
 	// PostAnswersHandler sets the operation handler for the post answers operation
 	PostAnswersHandler PostAnswersHandler
 
@@ -130,6 +140,14 @@ func (o *BitmaskAPI) Validate() error {
 
 	if o.JSONProducer == nil {
 		unregistered = append(unregistered, "JSONProducer")
+	}
+
+	if o.GetAllTransactionsHandler == nil {
+		unregistered = append(unregistered, "GetAllTransactionsHandler")
+	}
+
+	if o.GetTransactionHandler == nil {
+		unregistered = append(unregistered, "GetTransactionHandler")
 	}
 
 	if o.PostAnswersHandler == nil {
@@ -225,6 +243,16 @@ func (o *BitmaskAPI) initHandlerCache() {
 	if o.handlers == nil {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
+
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/walletTransactions"] = NewGetAllTransactions(o.context, o.GetAllTransactionsHandler)
+
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/getRecord"] = NewGetTransaction(o.context, o.GetTransactionHandler)
 
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)

@@ -21,17 +21,26 @@ type Transaction struct {
 	// Required: true
 	Address *string `json:"address"`
 
-	// amount
-	// Required: true
-	Amount *float64 `json:"amount"`
-
 	// bitmask
 	// Required: true
 	Bitmask *float64 `json:"bitmask"`
 
-	// id
+	// cost
 	// Required: true
-	ID *int64 `json:"id"`
+	Cost *float64 `json:"cost"`
+
+	// date created
+	DateCreated string `json:"dateCreated,omitempty"`
+
+	// fee
+	Fee float64 `json:"fee,omitempty"`
+
+	// short Id
+	ShortID int64 `json:"shortId,omitempty"`
+
+	// transaction Id
+	// Required: true
+	TransactionID *string `json:"transactionId"`
 }
 
 // Validate validates this transaction
@@ -43,17 +52,17 @@ func (m *Transaction) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateAmount(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if err := m.validateBitmask(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
-	if err := m.validateID(formats); err != nil {
+	if err := m.validateCost(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateTransactionID(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -73,15 +82,6 @@ func (m *Transaction) validateAddress(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Transaction) validateAmount(formats strfmt.Registry) error {
-
-	if err := validate.Required("amount", "body", m.Amount); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *Transaction) validateBitmask(formats strfmt.Registry) error {
 
 	if err := validate.Required("bitmask", "body", m.Bitmask); err != nil {
@@ -91,9 +91,18 @@ func (m *Transaction) validateBitmask(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Transaction) validateID(formats strfmt.Registry) error {
+func (m *Transaction) validateCost(formats strfmt.Registry) error {
 
-	if err := validate.Required("id", "body", m.ID); err != nil {
+	if err := validate.Required("cost", "body", m.Cost); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Transaction) validateTransactionID(formats strfmt.Registry) error {
+
+	if err := validate.Required("transactionId", "body", m.TransactionID); err != nil {
 		return err
 	}
 

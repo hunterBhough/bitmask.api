@@ -21,9 +21,13 @@ type Wallet struct {
 	// Required: true
 	ID *string `json:"id"`
 
-	// transaction
+	// private key
 	// Required: true
-	Transaction *Transaction `json:"transaction"`
+	PrivateKey *string `json:"privateKey"`
+
+	// transactions
+	// Required: true
+	Transactions WalletTransactions `json:"transactions"`
 }
 
 // Validate validates this wallet
@@ -35,7 +39,12 @@ func (m *Wallet) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateTransaction(formats); err != nil {
+	if err := m.validatePrivateKey(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateTransactions(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -55,20 +64,26 @@ func (m *Wallet) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Wallet) validateTransaction(formats strfmt.Registry) error {
+func (m *Wallet) validatePrivateKey(formats strfmt.Registry) error {
 
-	if err := validate.Required("transaction", "body", m.Transaction); err != nil {
+	if err := validate.Required("privateKey", "body", m.PrivateKey); err != nil {
 		return err
 	}
 
-	if m.Transaction != nil {
+	return nil
+}
 
-		if err := m.Transaction.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("transaction")
-			}
-			return err
+func (m *Wallet) validateTransactions(formats strfmt.Registry) error {
+
+	if err := validate.Required("transactions", "body", m.Transactions); err != nil {
+		return err
+	}
+
+	if err := m.Transactions.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("transactions")
 		}
+		return err
 	}
 
 	return nil
