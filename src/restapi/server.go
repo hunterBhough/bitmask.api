@@ -20,7 +20,7 @@ import (
 	flags "github.com/jessevdk/go-flags"
 	graceful "github.com/tylerb/graceful"
 
-	"github.com/hunterBhough/bitmask.api/restapi/operations"
+	"github.com/hunterBhough/bitmask.api/src/restapitapi/operations"
 )
 
 const (

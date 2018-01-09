@@ -38,9 +38,6 @@ func init() {
         "consumes": [
           "application/json"
         ],
-        "produces": [
-          "application/json"
-        ],
         "summary": "endpoint to receive answers from the frontend; encrypt and send to blockchain; cache in db",
         "operationId": "postAnswers",
         "responses": {
@@ -64,109 +61,14 @@ func init() {
           }
         }
       }
-    },
-    "/getRecord": {
-      "get": {
-        "produces": [
-          "application/json"
-        ],
-        "summary": "get all questions from the database for a particular record for the frontend",
-        "operationId": "getTransaction",
-        "parameters": [
-          {
-            "type": "string",
-            "description": "Wallet Id",
-            "name": "walletId",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "description": "the password to the wallet",
-            "name": "privateKey",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "description": "Id of the transaction",
-            "name": "transactionId",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#definitions/Question"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid or not enough inputs.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "429": {
-            "description": "Too many requests.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/walletTransactions": {
-      "get": {
-        "produces": [
-          "application/json"
-        ],
-        "summary": "get all records from the database for a particular user",
-        "operationId": "getAllTransactions",
-        "parameters": [
-          {
-            "type": "string",
-            "description": "Wallet Id",
-            "name": "walletId",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "description": "the password to the wallet",
-            "name": "privateKey",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#definitions/Question"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid or not enough inputs.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "429": {
-            "description": "Too many requests.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
     }
   },
   "definitions": {
     "Answer": {
       "type": "object",
+      "required": [
+        "content"
+      ],
       "properties": {
         "content": {
           "type": "string"
@@ -223,50 +125,26 @@ func init() {
     "Transaction": {
       "type": "object",
       "required": [
-        "transactionId",
+        "id",
         "bitmask",
-        "cost",
+        "amount",
         "address"
       ],
       "properties": {
         "address": {
           "type": "string"
         },
+        "amount": {
+          "type": "number",
+          "format": "float64"
+        },
         "bitmask": {
           "type": "number",
           "format": "float64"
         },
-        "cost": {
-          "type": "number",
-          "format": "float64"
-        },
-        "dateCreated": {
-          "type": "string"
-        },
-        "fee": {
-          "type": "number",
-          "format": "number"
-        },
-        "shortId": {
+        "id": {
           "type": "integer",
           "format": "int"
-        },
-        "transactionId": {
-          "type": "string"
-        }
-      }
-    },
-    "User": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "wallets": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Wallet"
-          }
         }
       }
     },
@@ -274,21 +152,14 @@ func init() {
       "type": "object",
       "required": [
         "id",
-        "transactions",
-        "privateKey"
+        "transaction"
       ],
       "properties": {
         "id": {
           "type": "string"
         },
-        "privateKey": {
-          "type": "string"
-        },
-        "transactions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Transaction"
-          }
+        "transaction": {
+          "$ref": "#/definitions/Transaction"
         }
       }
     }

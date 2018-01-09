@@ -11,7 +11,7 @@ import (
 	middleware "github.com/go-openapi/runtime/middleware"
 	graceful "github.com/tylerb/graceful"
 
-	"github.com/hunterBhough/bitmask.api/restapi/operations"
+	"github.com/hunterBhough/bitmask.api/src/restapitapi/operations"
 )
 
 // This file is safe to edit. Once it exists it will not be overwritten

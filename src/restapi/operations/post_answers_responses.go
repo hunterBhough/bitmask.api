@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/hunterBhough/bitmask.api/models"
+	"github.com/hunterBhough/bitmask.api/src/models"
 )
 
 // PostAnswersOKCode is the HTTP code returned for type PostAnswersOK
