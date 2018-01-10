@@ -1,0 +1,81 @@
+---
+swagger: "2.0"
+info:
+  title: Bitmask API
+  description: "An api for moving data between a form and the blockchain"
+  version: 1.0.0
+  contact:
+    name: Hunter Hough
+    email: hunter.hough@icf.com
+  license:
+    name: Apache 2.0
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+basePath: /v1
+schemes:
+- http
+paths:
+  /getRecords:
+    get:
+      summary: "get all questions from the database for a particular record for the frontend"
+      operationId: getRecords
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#definitions/Response"
+        400:
+          description: Invalid or not enough inputs.
+          schema:
+            $ref: "#/definitions/Error"
+        429:
+          description: Too many requests.
+          schema:
+            $ref: "#/definitions/Error"
+definitions:
+### Backend definitions :: for connecting to the blockchain.
+# For reference: https://dogechain.info/api/blockchain_api --> -Get transaction
+  Transaction:
+    type: "object"
+    required:
+      - "transactionId"
+    properties:
+      transactionId:
+        type: "string"
+      dateCreated:
+        type: "string"
+      bitmask:
+        type: "number"
+        format: "float64"
+      cost:
+        type: "number"
+        format: "float64"
+      fee:
+        type: "number"
+        format: "number"
+      address:
+        type: "string"
+
+### Front End definitions, for serving decrypted data
+  Response:
+    type: "array"
+    items:
+      $ref: "#/definitions/Record"
+
+  Record:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int"
+      question1:
+        type: "string"
+
+  Error:
+    type: "object"
+    properties:
+      status:
+        type: "number"
+      message:
+        type: "string"

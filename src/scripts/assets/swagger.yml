@@ -142,6 +142,8 @@ definitions:
         format: "number"
       address:
         type: "string"
+
+
   User:
     type: "object"
     properties:
