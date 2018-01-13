@@ -1,22 +1,13 @@
 {
-  "users": [
-    {
-      "wallets": [
-        {
-          "walletId": "123456789",
-          "privateKey": "EXAMPLE_PRIVATE_KEY",
-          "transactions": [
-            {
-              "shrotId": "1",
-              "dateCreated": "12-12-2012:12:12:12",
-              "transactionId": "334123124",
-              "bitmask": "1.100",
-              "cost": 0.00046,
-              "miningFee": 0.000005
-            }
-          ]
-        }
-      ]
-    }
+  "transactions": [
+    { "hash": "122030923" },
+    { "hash": "122323423" },
+    { "hash": "120309235" },
+    { "hash": "122030253" },
+    { "hash": "122030342" },
+    { "hash": "122014235" },
+    { "hash": "122030923" },
+    { "hash": "120334234" },
+    { "hash": "122030925" }
   ]
 }

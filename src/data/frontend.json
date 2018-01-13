@@ -1,18 +1,12 @@
 {
-  "questions": [
+  "Records": [
     {
-      "questionId": 1,
-      "title": "question 1",
-      "content": "this is the first question",
-      "description": "this describes the first question",
-      "answers": [
-        {
-          "answerId": 1,
-          "title": "first answer",
-          "content": "this is the first answer",
-          "description": "this describes the first answer"
-        }
-      ]
+      "id": 1,
+      "disease": "AIDS"
+    },
+    {
+      "id": 2,
+      "disease": "Lupis"
     }
   ]
 }
