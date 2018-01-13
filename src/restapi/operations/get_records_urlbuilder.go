@@ -11,21 +11,15 @@ import (
 	golangswaggerpaths "path"
 )
 
-// GetTransactionURL generates an URL for the get transaction operation
-type GetTransactionURL struct {
-	PrivateKey    *string
-	TransactionID *string
-	WalletID      *string
-
+// GetRecordsURL generates an URL for the get records operation
+type GetRecordsURL struct {
 	_basePath string
-	// avoid unkeyed usage
-	_ struct{}
 }
 
 // WithBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
-func (o *GetTransactionURL) WithBasePath(bp string) *GetTransactionURL {
+func (o *GetRecordsURL) WithBasePath(bp string) *GetRecordsURL {
 	o.SetBasePath(bp)
 	return o
 }
@@ -33,15 +27,15 @@ func (o *GetTransactionURL) WithBasePath(bp string) *GetTransactionURL {
 // SetBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
-func (o *GetTransactionURL) SetBasePath(bp string) {
+func (o *GetRecordsURL) SetBasePath(bp string) {
 	o._basePath = bp
 }
 
 // Build a url path and query string
-func (o *GetTransactionURL) Build() (*url.URL, error) {
+func (o *GetRecordsURL) Build() (*url.URL, error) {
 	var result url.URL
 
-	var _path = "/getRecord"
+	var _path = "/getRecords"
 
 	_basePath := o._basePath
 	if _basePath == "" {
@@ -49,39 +43,11 @@ func (o *GetTransactionURL) Build() (*url.URL, error) {
 	}
 	result.Path = golangswaggerpaths.Join(_basePath, _path)
 
-	qs := make(url.Values)
-
-	var privateKey string
-	if o.PrivateKey != nil {
-		privateKey = *o.PrivateKey
-	}
-	if privateKey != "" {
-		qs.Set("privateKey", privateKey)
-	}
-
-	var transactionID string
-	if o.TransactionID != nil {
-		transactionID = *o.TransactionID
-	}
-	if transactionID != "" {
-		qs.Set("transactionId", transactionID)
-	}
-
-	var walletID string
-	if o.WalletID != nil {
-		walletID = *o.WalletID
-	}
-	if walletID != "" {
-		qs.Set("walletId", walletID)
-	}
-
-	result.RawQuery = qs.Encode()
-
 	return &result, nil
 }
 
 // Must is a helper function to panic when the url builder returns an error
-func (o *GetTransactionURL) Must(u *url.URL, err error) *url.URL {
+func (o *GetRecordsURL) Must(u *url.URL, err error) *url.URL {
 	if err != nil {
 		panic(err)
 	}
@@ -92,17 +58,17 @@ func (o *GetTransactionURL) Must(u *url.URL, err error) *url.URL {
 }
 
 // String returns the string representation of the path with query string
-func (o *GetTransactionURL) String() string {
+func (o *GetRecordsURL) String() string {
 	return o.Must(o.Build()).String()
 }
 
 // BuildFull builds a full url with scheme, host, path and query string
-func (o *GetTransactionURL) BuildFull(scheme, host string) (*url.URL, error) {
+func (o *GetRecordsURL) BuildFull(scheme, host string) (*url.URL, error) {
 	if scheme == "" {
-		return nil, errors.New("scheme is required for a full url on GetTransactionURL")
+		return nil, errors.New("scheme is required for a full url on GetRecordsURL")
 	}
 	if host == "" {
-		return nil, errors.New("host is required for a full url on GetTransactionURL")
+		return nil, errors.New("host is required for a full url on GetRecordsURL")
 	}
 
 	base, err := o.Build()
@@ -116,6 +82,6 @@ func (o *GetTransactionURL) BuildFull(scheme, host string) (*url.URL, error) {
 }
 
 // StringFull returns the string representation of a complete url
-func (o *GetTransactionURL) StringFull(scheme, host string) string {
+func (o *GetRecordsURL) StringFull(scheme, host string) string {
 	return o.Must(o.BuildFull(scheme, host)).String()
 }

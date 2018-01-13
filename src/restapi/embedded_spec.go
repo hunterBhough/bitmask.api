@@ -33,18 +33,18 @@ func init() {
   },
   "basePath": "/v1",
   "paths": {
-    "/": {
-      "post": {
-        "consumes": [
+    "/getRecords": {
+      "get": {
+        "produces": [
           "application/json"
         ],
-        "summary": "endpoint to receive answers from the frontend; encrypt and send to blockchain; cache in db",
-        "operationId": "postAnswers",
+        "summary": "get all questions from the database for a particular record for the frontend",
+        "operationId": "getRecords",
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "string"
+              "$ref": "#definitions/Records"
             }
           },
           "400": {
@@ -64,27 +64,6 @@ func init() {
     }
   },
   "definitions": {
-    "Answer": {
-      "type": "object",
-      "required": [
-        "content"
-      ],
-      "properties": {
-        "content": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int"
-        },
-        "title": {
-          "type": "string"
-        }
-      }
-    },
     "Error": {
       "type": "object",
       "properties": {
@@ -96,70 +75,44 @@ func init() {
         }
       }
     },
-    "Question": {
+    "Record": {
       "type": "object",
-      "required": [
-        "id",
-        "title",
-        "content"
-      ],
       "properties": {
-        "Answer": {
-          "$ref": "#/definitions/Answer"
-        },
-        "content": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
         "id": {
           "type": "integer",
           "format": "int"
         },
-        "title": {
+        "question1": {
           "type": "string"
         }
+      }
+    },
+    "Records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Record"
       }
     },
     "Transaction": {
       "type": "object",
       "required": [
-        "id",
-        "bitmask",
-        "amount",
-        "address"
+        "hash",
+        "amount"
       ],
       "properties": {
-        "address": {
-          "type": "string"
-        },
         "amount": {
           "type": "number",
           "format": "float64"
         },
-        "bitmask": {
-          "type": "number",
-          "format": "float64"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int"
-        }
-      }
-    },
-    "Wallet": {
-      "type": "object",
-      "required": [
-        "id",
-        "transaction"
-      ],
-      "properties": {
-        "id": {
+        "block_hash": {
           "type": "string"
         },
-        "transaction": {
-          "$ref": "#/definitions/Transaction"
+        "hash": {
+          "type": "string"
+        },
+        "time": {
+          "type": "number",
+          "format": "integer"
         }
       }
     }

@@ -24,7 +24,7 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#definitions/Response"
+            $ref: "#definitions/Records"
         400:
           description: Invalid or not enough inputs.
           schema:
@@ -39,26 +39,24 @@ definitions:
   Transaction:
     type: "object"
     required:
-      - "transactionId"
+      - "hash"
+      - "amount"
     properties:
-      transactionId:
+      hash:
         type: "string"
-      dateCreated:
+      block_hash:
         type: "string"
-      bitmask:
+      time:
+        type: "number"
+        format: "integer"
+      amount:
         type: "number"
         format: "float64"
-      cost:
-        type: "number"
-        format: "float64"
-      fee:
-        type: "number"
-        format: "number"
-      address:
-        type: "string"
+#      address:
+#        type: "string"
 
 ### Front End definitions, for serving decrypted data
-  Response:
+  Records:
     type: "array"
     items:
       $ref: "#/definitions/Record"

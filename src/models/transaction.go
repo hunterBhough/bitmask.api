@@ -17,52 +17,31 @@ import (
 // swagger:model Transaction
 type Transaction struct {
 
-	// address
+	// amount
 	// Required: true
-	Address *string `json:"address"`
+	Amount *float64 `json:"amount"`
 
-	// bitmask
+	// block hash
+	BlockHash string `json:"block_hash,omitempty"`
+
+	// hash
 	// Required: true
-	Bitmask *float64 `json:"bitmask"`
+	Hash *string `json:"hash"`
 
-	// cost
-	// Required: true
-	Cost *float64 `json:"cost"`
-
-	// date created
-	DateCreated string `json:"dateCreated,omitempty"`
-
-	// fee
-	Fee float64 `json:"fee,omitempty"`
-
-	// short Id
-	ShortID int64 `json:"shortId,omitempty"`
-
-	// transaction Id
-	// Required: true
-	TransactionID *string `json:"transactionId"`
+	// time
+	Time int64 `json:"time,omitempty"`
 }
 
 // Validate validates this transaction
 func (m *Transaction) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAddress(formats); err != nil {
+	if err := m.validateAmount(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
-	if err := m.validateBitmask(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateCost(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateTransactionID(formats); err != nil {
+	if err := m.validateHash(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -73,36 +52,18 @@ func (m *Transaction) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Transaction) validateAddress(formats strfmt.Registry) error {
+func (m *Transaction) validateAmount(formats strfmt.Registry) error {
 
-	if err := validate.Required("address", "body", m.Address); err != nil {
+	if err := validate.Required("amount", "body", m.Amount); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *Transaction) validateBitmask(formats strfmt.Registry) error {
+func (m *Transaction) validateHash(formats strfmt.Registry) error {
 
-	if err := validate.Required("bitmask", "body", m.Bitmask); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Transaction) validateCost(formats strfmt.Registry) error {
-
-	if err := validate.Required("cost", "body", m.Cost); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Transaction) validateTransactionID(formats strfmt.Registry) error {
-
-	if err := validate.Required("transactionId", "body", m.TransactionID); err != nil {
+	if err := validate.Required("hash", "body", m.Hash); err != nil {
 		return err
 	}
 

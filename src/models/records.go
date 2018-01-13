@@ -14,12 +14,12 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// UserWallets user wallets
-// swagger:model userWallets
-type UserWallets []*Wallet
+// Records records
+// swagger:model Records
+type Records []*Record
 
-// Validate validates this user wallets
-func (m UserWallets) Validate(formats strfmt.Registry) error {
+// Validate validates this records
+func (m Records) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	for i := 0; i < len(m); i++ {

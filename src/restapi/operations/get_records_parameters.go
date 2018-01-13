@@ -12,18 +12,18 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 )
 
-// NewPostAnswersParams creates a new PostAnswersParams object
+// NewGetRecordsParams creates a new GetRecordsParams object
 // with the default values initialized.
-func NewPostAnswersParams() PostAnswersParams {
+func NewGetRecordsParams() GetRecordsParams {
 	var ()
-	return PostAnswersParams{}
+	return GetRecordsParams{}
 }
 
-// PostAnswersParams contains all the bound params for the post answers operation
+// GetRecordsParams contains all the bound params for the get records operation
 // typically these are obtained from a http.Request
 //
-// swagger:parameters postAnswers
-type PostAnswersParams struct {
+// swagger:parameters getRecords
+type GetRecordsParams struct {
 
 	// HTTP Request Object
 	HTTPRequest *http.Request `json:"-"`
@@ -31,7 +31,7 @@ type PostAnswersParams struct {
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
 // for simple values it will use straight method calls
-func (o *PostAnswersParams) BindRequest(r *http.Request, route *middleware.MatchedRoute) error {
+func (o *GetRecordsParams) BindRequest(r *http.Request, route *middleware.MatchedRoute) error {
 	var res []error
 	o.HTTPRequest = r
 
