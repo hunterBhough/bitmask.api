@@ -14,12 +14,12 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// Records records
-// swagger:model Records
-type Records []*Record
+// TransmissionTypeRecords transmission type records
+// swagger:model transmissionTypeRecords
+type TransmissionTypeRecords []*Record
 
-// Validate validates this records
-func (m Records) Validate(formats strfmt.Registry) error {
+// Validate validates this transmission type records
+func (m TransmissionTypeRecords) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	for i := 0; i < len(m); i++ {

@@ -31,7 +31,7 @@ func NewGetRecords(ctx *middleware.Context, handler GetRecordsHandler) *GetRecor
 
 /*GetRecords swagger:route GET /getRecords getRecords
 
-get all questions from the database for a particular record for the frontend
+get all records from dogechain by transactionId. Served as an array of transmission_types containing a name and an array of decrypted records
 
 */
 type GetRecords struct {

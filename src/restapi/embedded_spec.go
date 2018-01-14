@@ -19,8 +19,8 @@ func init() {
   ],
   "swagger": "2.0",
   "info": {
-    "description": "An api for moving data between a form and the blockchain",
-    "title": "Bitmask API",
+    "description": "An api for moving data between a form and dogechain through a bitmask",
+    "title": "Go-DOGE",
     "contact": {
       "name": "Hunter Hough",
       "email": "hunter.hough@icf.com"
@@ -38,13 +38,16 @@ func init() {
         "produces": [
           "application/json"
         ],
-        "summary": "get all questions from the database for a particular record for the frontend",
+        "summary": "get all records from dogechain by transactionId. Served as an array of transmission_types containing a name and an array of decrypted records",
         "operationId": "getRecords",
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#definitions/Records"
+              "type": "array",
+              "items": {
+                "$ref": "#definitions/Transmission_Type"
+              }
             }
           },
           "400": {
@@ -78,19 +81,33 @@ func init() {
     "Record": {
       "type": "object",
       "properties": {
+        "age": {
+          "type": "number",
+          "format": "integer"
+        },
+        "case_outbreak_indicator": {
+          "type": "string"
+        },
+        "death": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "number",
+          "format": "integer"
+        },
+        "hospitalized": {
+          "type": "string"
+        },
         "id": {
           "type": "integer",
           "format": "int"
         },
-        "question1": {
+        "immediate_national_notifiable_condition": {
+          "type": "string"
+        },
+        "pregnancy_status": {
           "type": "string"
         }
-      }
-    },
-    "Records": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Record"
       }
     },
     "Transaction": {
@@ -113,6 +130,44 @@ func init() {
         "time": {
           "type": "number",
           "format": "integer"
+        }
+      }
+    },
+    "Transmission_Type": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Record"
+          }
+        }
+      }
+    },
+    "Wallet": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Transaction"
+          }
         }
       }
     }

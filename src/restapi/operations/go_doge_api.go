@@ -20,9 +20,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewBitmaskAPI creates a new Bitmask instance
-func NewBitmaskAPI(spec *loads.Document) *BitmaskAPI {
-	return &BitmaskAPI{
+// NewGoDogeAPI creates a new GoDoge instance
+func NewGoDogeAPI(spec *loads.Document) *GoDogeAPI {
+	return &GoDogeAPI{
 		handlers:            make(map[string]map[string]http.Handler),
 		formats:             strfmt.Default,
 		defaultConsumes:     "application/json",
@@ -41,8 +41,8 @@ func NewBitmaskAPI(spec *loads.Document) *BitmaskAPI {
 	}
 }
 
-/*BitmaskAPI An api for moving data between a form and the blockchain */
-type BitmaskAPI struct {
+/*GoDogeAPI An api for moving data between a form and dogechain through a bitmask */
+type GoDogeAPI struct {
 	spec            *loads.Document
 	context         *middleware.Context
 	handlers        map[string]map[string]http.Handler
@@ -86,42 +86,42 @@ type BitmaskAPI struct {
 }
 
 // SetDefaultProduces sets the default produces media type
-func (o *BitmaskAPI) SetDefaultProduces(mediaType string) {
+func (o *GoDogeAPI) SetDefaultProduces(mediaType string) {
 	o.defaultProduces = mediaType
 }
 
 // SetDefaultConsumes returns the default consumes media type
-func (o *BitmaskAPI) SetDefaultConsumes(mediaType string) {
+func (o *GoDogeAPI) SetDefaultConsumes(mediaType string) {
 	o.defaultConsumes = mediaType
 }
 
 // SetSpec sets a spec that will be served for the clients.
-func (o *BitmaskAPI) SetSpec(spec *loads.Document) {
+func (o *GoDogeAPI) SetSpec(spec *loads.Document) {
 	o.spec = spec
 }
 
 // DefaultProduces returns the default produces media type
-func (o *BitmaskAPI) DefaultProduces() string {
+func (o *GoDogeAPI) DefaultProduces() string {
 	return o.defaultProduces
 }
 
 // DefaultConsumes returns the default consumes media type
-func (o *BitmaskAPI) DefaultConsumes() string {
+func (o *GoDogeAPI) DefaultConsumes() string {
 	return o.defaultConsumes
 }
 
 // Formats returns the registered string formats
-func (o *BitmaskAPI) Formats() strfmt.Registry {
+func (o *GoDogeAPI) Formats() strfmt.Registry {
 	return o.formats
 }
 
 // RegisterFormat registers a custom format validator
-func (o *BitmaskAPI) RegisterFormat(name string, format strfmt.Format, validator strfmt.Validator) {
+func (o *GoDogeAPI) RegisterFormat(name string, format strfmt.Format, validator strfmt.Validator) {
 	o.formats.Add(name, format, validator)
 }
 
-// Validate validates the registrations in the BitmaskAPI
-func (o *BitmaskAPI) Validate() error {
+// Validate validates the registrations in the GoDogeAPI
+func (o *GoDogeAPI) Validate() error {
 	var unregistered []string
 
 	if o.JSONConsumer == nil {
@@ -144,26 +144,26 @@ func (o *BitmaskAPI) Validate() error {
 }
 
 // ServeErrorFor gets a error handler for a given operation id
-func (o *BitmaskAPI) ServeErrorFor(operationID string) func(http.ResponseWriter, *http.Request, error) {
+func (o *GoDogeAPI) ServeErrorFor(operationID string) func(http.ResponseWriter, *http.Request, error) {
 	return o.ServeError
 }
 
 // AuthenticatorsFor gets the authenticators for the specified security schemes
-func (o *BitmaskAPI) AuthenticatorsFor(schemes map[string]spec.SecurityScheme) map[string]runtime.Authenticator {
+func (o *GoDogeAPI) AuthenticatorsFor(schemes map[string]spec.SecurityScheme) map[string]runtime.Authenticator {
 
 	return nil
 
 }
 
 // Authorizer returns the registered authorizer
-func (o *BitmaskAPI) Authorizer() runtime.Authorizer {
+func (o *GoDogeAPI) Authorizer() runtime.Authorizer {
 
 	return nil
 
 }
 
 // ConsumersFor gets the consumers for the specified media types
-func (o *BitmaskAPI) ConsumersFor(mediaTypes []string) map[string]runtime.Consumer {
+func (o *GoDogeAPI) ConsumersFor(mediaTypes []string) map[string]runtime.Consumer {
 
 	result := make(map[string]runtime.Consumer)
 	for _, mt := range mediaTypes {
@@ -179,7 +179,7 @@ func (o *BitmaskAPI) ConsumersFor(mediaTypes []string) map[string]runtime.Consum
 }
 
 // ProducersFor gets the producers for the specified media types
-func (o *BitmaskAPI) ProducersFor(mediaTypes []string) map[string]runtime.Producer {
+func (o *GoDogeAPI) ProducersFor(mediaTypes []string) map[string]runtime.Producer {
 
 	result := make(map[string]runtime.Producer)
 	for _, mt := range mediaTypes {
@@ -195,7 +195,7 @@ func (o *BitmaskAPI) ProducersFor(mediaTypes []string) map[string]runtime.Produc
 }
 
 // HandlerFor gets a http.Handler for the provided operation method and path
-func (o *BitmaskAPI) HandlerFor(method, path string) (http.Handler, bool) {
+func (o *GoDogeAPI) HandlerFor(method, path string) (http.Handler, bool) {
 	if o.handlers == nil {
 		return nil, false
 	}
@@ -210,8 +210,8 @@ func (o *BitmaskAPI) HandlerFor(method, path string) (http.Handler, bool) {
 	return h, ok
 }
 
-// Context returns the middleware context for the bitmask API
-func (o *BitmaskAPI) Context() *middleware.Context {
+// Context returns the middleware context for the go doge API
+func (o *GoDogeAPI) Context() *middleware.Context {
 	if o.context == nil {
 		o.context = middleware.NewRoutableContext(o.spec, o, nil)
 	}
@@ -219,7 +219,7 @@ func (o *BitmaskAPI) Context() *middleware.Context {
 	return o.context
 }
 
-func (o *BitmaskAPI) initHandlerCache() {
+func (o *GoDogeAPI) initHandlerCache() {
 	o.Context() // don't care about the result, just that the initialization happened
 
 	if o.handlers == nil {
@@ -235,7 +235,7 @@ func (o *BitmaskAPI) initHandlerCache() {
 
 // Serve creates a http handler to serve the API over HTTP
 // can be used directly in http.ListenAndServe(":8000", api.Serve(nil))
-func (o *BitmaskAPI) Serve(builder middleware.Builder) http.Handler {
+func (o *GoDogeAPI) Serve(builder middleware.Builder) http.Handler {
 	o.Init()
 
 	if o.Middleware != nil {
@@ -245,7 +245,7 @@ func (o *BitmaskAPI) Serve(builder middleware.Builder) http.Handler {
 }
 
 // Init allows you to just initialize the handler cache, you can then recompose the middelware as you see fit
-func (o *BitmaskAPI) Init() {
+func (o *GoDogeAPI) Init() {
 	if len(o.handlers) == 0 {
 		o.initHandlerCache()
 	}

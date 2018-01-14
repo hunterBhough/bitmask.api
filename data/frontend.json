@@ -1,12 +1,35 @@
 {
-  "Records": [
+  "transmission_types": [
     {
-      "id": 1,
-      "disease": "AIDS"
+      "name": "NNDSS Slush",
+      "records": [
+        {
+          "id": 1,
+          "disease": "AIDS"
+        },
+        {
+          "id": 2,
+          "disease": "Lupis"
+        }
+      ]
     },
     {
-      "id": 2,
-      "disease": "Lupis"
+      "name": "NNDSS Food borne",
+      "records": [
+
+      ]
+    },
+    {
+      "name": "NNDSS Airborne",
+      "records": [
+
+      ]
+    },
+    {
+      "name": "NNDSS Sexual",
+      "records": [
+
+      ]
     }
   ]
 }

@@ -1,8 +1,8 @@
 ---
 swagger: "2.0"
 info:
-  title: Bitmask API
-  description: "An api for moving data between a form and the blockchain"
+  title: Go-DOGE
+  description: "An api for moving data between a form and dogechain through a bitmask"
   version: 1.0.0
   contact:
     name: Hunter Hough
@@ -16,7 +16,7 @@ schemes:
 paths:
   /getRecords:
     get:
-      summary: "get all questions from the database for a particular record for the frontend"
+      summary: "get all records from dogechain by transactionId. Served as an array of transmission_types containing a name and an array of decrypted records"
       operationId: getRecords
       produces:
         - application/json
@@ -24,7 +24,9 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#definitions/Records"
+            type: "array"
+            items:
+              $ref: "#definitions/Transmission_Type"
         400:
           description: Invalid or not enough inputs.
           schema:
@@ -34,8 +36,22 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 definitions:
-### Backend definitions :: for connecting to the blockchain.
+### Backend definitions :: for connecting to dogechain.
 # For reference: https://dogechain.info/api/blockchain_api --> -Get transaction
+  Wallet:
+    type: "object"
+    required:
+      - "id"
+      - "name"
+    properties:
+      name:
+        type: "string"
+      id:
+        type: "string"
+      transactions:
+        type: "array"
+        items:
+          $ref: "#/definitions/Transaction"
   Transaction:
     type: "object"
     required:
@@ -52,24 +68,43 @@ definitions:
       amount:
         type: "number"
         format: "float64"
-#      address:
-#        type: "string"
 
 ### Front End definitions, for serving decrypted data
-  Records:
-    type: "array"
-    items:
-      $ref: "#/definitions/Record"
-
+  Transmission_Type:
+    type: "object"
+    required:
+      - "name"
+    properties:
+      name:
+        type: "string"
+      records:
+        type: "array"
+        items:
+          $ref: "#/definitions/Record"
   Record:
     type: "object"
     properties:
       id:
         type: "integer"
         format: "int"
-      question1:
+      pregnancy_status:
+        type: "string"
+      hospitalized:
+        type: "string"
+      duration:
+        type: "number"
+        format: "integer"
+      death:
+        type: "string"
+      age:
+        type: "number"
+        format: "integer"
+      immediate_national_notifiable_condition:
+        type: "string"
+      case_outbreak_indicator:
         type: "string"
 
+# Generic error
   Error:
     type: "object"
     properties:

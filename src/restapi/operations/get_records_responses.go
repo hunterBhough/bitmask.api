@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/hunterBhough/bitmask.api/src/models"
+	"github.com/hunterBhough/go-doge/src/models"
 )
 
 // GetRecordsOKCode is the HTTP code returned for type GetRecordsOK
@@ -25,7 +25,7 @@ type GetRecordsOK struct {
 	/*
 	  In: Body
 	*/
-	Payload models.Records `json:"body,omitempty"`
+	Payload []models.TransmissionType `json:"body,omitempty"`
 }
 
 // NewGetRecordsOK creates GetRecordsOK with default headers values
@@ -34,13 +34,13 @@ func NewGetRecordsOK() *GetRecordsOK {
 }
 
 // WithPayload adds the payload to the get records o k response
-func (o *GetRecordsOK) WithPayload(payload models.Records) *GetRecordsOK {
+func (o *GetRecordsOK) WithPayload(payload []models.TransmissionType) *GetRecordsOK {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the get records o k response
-func (o *GetRecordsOK) SetPayload(payload models.Records) {
+func (o *GetRecordsOK) SetPayload(payload []models.TransmissionType) {
 	o.Payload = payload
 }
 
@@ -49,6 +49,10 @@ func (o *GetRecordsOK) WriteResponse(rw http.ResponseWriter, producer runtime.Pr
 
 	rw.WriteHeader(200)
 	payload := o.Payload
+	if payload == nil {
+		payload = make([]models.TransmissionType, 0, 50)
+	}
+
 	if err := producer.Produce(rw, payload); err != nil {
 		panic(err) // let the recovery middleware deal with this
 	}

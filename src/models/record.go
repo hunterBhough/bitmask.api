@@ -16,11 +16,29 @@ import (
 // swagger:model Record
 type Record struct {
 
+	// age
+	Age int64 `json:"age,omitempty"`
+
+	// case outbreak indicator
+	CaseOutbreakIndicator string `json:"case_outbreak_indicator,omitempty"`
+
+	// death
+	Death string `json:"death,omitempty"`
+
+	// duration
+	Duration int64 `json:"duration,omitempty"`
+
+	// hospitalized
+	Hospitalized string `json:"hospitalized,omitempty"`
+
 	// id
 	ID int64 `json:"id,omitempty"`
 
-	// question1
-	Question1 string `json:"question1,omitempty"`
+	// immediate national notifiable condition
+	ImmediateNationalNotifiableCondition string `json:"immediate_national_notifiable_condition,omitempty"`
+
+	// pregnancy status
+	PregnancyStatus string `json:"pregnancy_status,omitempty"`
 }
 
 // Validate validates this record

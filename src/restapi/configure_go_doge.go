@@ -11,18 +11,18 @@ import (
 	middleware "github.com/go-openapi/runtime/middleware"
 	graceful "github.com/tylerb/graceful"
 
-	"github.com/hunterBhough/bitmask.api/src/restapi/operations"
+	"github.com/hunterBhough/go-doge/src/restapi/operations"
 )
 
 // This file is safe to edit. Once it exists it will not be overwritten
 
-//go:generate swagger generate server --target .. --name bitmask --spec ../src/scripts/assets/swagger.1.yml
+//go:generate swagger generate server --target ../src --name go-doge --spec ../scripts/assets/swagger.1.yml
 
-func configureFlags(api *operations.BitmaskAPI) {
+func configureFlags(api *operations.GoDogeAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
 }
 
-func configureAPI(api *operations.BitmaskAPI) http.Handler {
+func configureAPI(api *operations.GoDogeAPI) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
 
