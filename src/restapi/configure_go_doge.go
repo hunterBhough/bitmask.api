@@ -12,6 +12,7 @@ import (
 	graceful "github.com/tylerb/graceful"
 
 	"github.com/hunterBhough/go-doge/src/restapi/operations"
+	"github.com/hunterBhough/go-doge/src/cmd/handlers"
 )
 
 // This file is safe to edit. Once it exists it will not be overwritten
@@ -37,7 +38,7 @@ func configureAPI(api *operations.GoDogeAPI) http.Handler {
 	api.JSONProducer = runtime.JSONProducer()
 
 	api.GetRecordsHandler = operations.GetRecordsHandlerFunc(func(params operations.GetRecordsParams) middleware.Responder {
-		return middleware.NotImplemented("operation .GetRecords has not yet been implemented")
+		return handlers.GetRecordsHandlerFunc(params)
 	})
 
 	api.ServerShutdown = func() {}
