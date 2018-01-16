@@ -4,6 +4,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/hunterBhough/go-doge/src/restapi/operations"
 	"github.com/hunterBhough/go-doge/src/models"
+	"github.com/hunterBhough/go-doge/src/cryptography"
 )
 
 func GetRecordsHandlerFunc(params operations.GetRecordsParams) middleware.Responder {
@@ -13,34 +14,59 @@ func GetRecordsHandlerFunc(params operations.GetRecordsParams) middleware.Respon
 
 // loop over transmission_types
 
+//func buildRecords() []*models.Record {
+//	records := []*models.Record{}
+//	for i := 0; i < 10; i++ {
+//		age := int64(29)
+//		outbreak := "No"
+//		death := "No"
+//		duration := int64(4)
+//		hospitalized := "Yes"
+//		id := int64(i)
+//		innc := "No"
+//		pregnancy := "Yes"
+//
+//
+//		record := models.Record{
+//			Age: age,
+//			CaseOutbreakIndicator: outbreak,
+//			Death: death,
+//			Duration: duration,
+//			Hospitalized: hospitalized,
+//			ID: id,
+//			ImmediateNationalNotifiableCondition: innc,
+//			PregnancyStatus: pregnancy,
+//		}
+//		records = append(records, &record)
+//	}
+//	return records
+//}
 func buildRecords() []*models.Record {
 	records := []*models.Record{}
-	for i := 0; i < 10; i++ {
-		age := int64(29)
-		outbreak := "No"
-		death := "No"
-		duration := int64(4)
-		hospitalized := "Yes"
-		id := int64(i)
-		innc := "No"
-		pregnancy := "Yes"
-
-
-		record := models.Record{
-			Age: age,
-			CaseOutbreakIndicator: outbreak,
-			Death: death,
-			Duration: duration,
-			Hospitalized: hospitalized,
-			ID: id,
-			ImmediateNationalNotifiableCondition: innc,
-			PregnancyStatus: pregnancy,
-		}
-		records = append(records, &record)
+	transactionTempPointer := models.Transaction{
+		Amount:  1.12424912,
+		Time: int64(12424912),
+		Hash: "112424912",
+		BlockHash: "112424912",
+	}
+	//transactionTempPointer.Amount = 1.12424912
+	//transactionTempPointer.Time = int64(12424912)
+	//transactionTempPointer.Hash = "112424912"
+	//transactionTempPointer.BlockHash = "112424912"
+	for i := 0; i < 2; i++ {
+		//age := int64(29)
+		//outbreak := "No"
+		//death := "No"
+		//duration := int64(4)
+		//hospitalized := "Yes"
+		//id := int64(i)
+		//innc := "No"
+		//pregnancy := "Yes"
+		record := cryptography.Decrypt(transactionTempPointer)
+		records = append(records, record)
 	}
 	return records
 }
-
 func buildTransmissionTypeRecords(records []*models.Record) models.TransmissionTypeRecords {
 	transmissionTypeRecords := records
 	return transmissionTypeRecords
@@ -51,12 +77,12 @@ func handle() middleware.Responder {
 	payload := []models.TransmissionType{}
 	transmissionTypeRecords := models.TransmissionTypeRecords{}
 
-	for j := 0; j < 4; j++ {
+	for j := 0; j < 2; j++ {
 		name := "NNDSS Food Borne"
 		transmissionTypeRecords = buildTransmissionTypeRecords(buildRecords())
 
 		transmissionType := models.TransmissionType{
-			Name: &name,
+			Name: name,
 			Records: transmissionTypeRecords,
 		}
 		payload = append(payload, transmissionType)

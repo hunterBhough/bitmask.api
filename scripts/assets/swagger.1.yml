@@ -40,9 +40,6 @@ definitions:
 # For reference: https://dogechain.info/api/blockchain_api --> -Get transaction
   Wallet:
     type: "object"
-    required:
-      - "id"
-      - "name"
     properties:
       name:
         type: "string"
@@ -54,9 +51,6 @@ definitions:
           $ref: "#/definitions/Transaction"
   Transaction:
     type: "object"
-    required:
-      - "hash"
-      - "amount"
     properties:
       hash:
         type: "string"
@@ -72,8 +66,6 @@ definitions:
 ### Front End definitions, for serving decrypted data
   Transmission_Type:
     type: "object"
-    required:
-      - "name"
     properties:
       name:
         type: "string"

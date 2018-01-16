@@ -10,7 +10,6 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // Transaction transaction
@@ -18,15 +17,13 @@ import (
 type Transaction struct {
 
 	// amount
-	// Required: true
-	Amount *float64 `json:"amount"`
+	Amount float64 `json:"amount,omitempty"`
 
 	// block hash
 	BlockHash string `json:"block_hash,omitempty"`
 
 	// hash
-	// Required: true
-	Hash *string `json:"hash"`
+	Hash string `json:"hash,omitempty"`
 
 	// time
 	Time int64 `json:"time,omitempty"`
@@ -36,37 +33,9 @@ type Transaction struct {
 func (m *Transaction) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAmount(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateHash(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *Transaction) validateAmount(formats strfmt.Registry) error {
-
-	if err := validate.Required("amount", "body", m.Amount); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Transaction) validateHash(formats strfmt.Registry) error {
-
-	if err := validate.Required("hash", "body", m.Hash); err != nil {
-		return err
-	}
-
 	return nil
 }
 

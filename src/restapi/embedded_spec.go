@@ -112,10 +112,6 @@ func init() {
     },
     "Transaction": {
       "type": "object",
-      "required": [
-        "hash",
-        "amount"
-      ],
       "properties": {
         "amount": {
           "type": "number",
@@ -135,9 +131,6 @@ func init() {
     },
     "Transmission_Type": {
       "type": "object",
-      "required": [
-        "name"
-      ],
       "properties": {
         "name": {
           "type": "string"
@@ -152,10 +145,6 @@ func init() {
     },
     "Wallet": {
       "type": "object",
-      "required": [
-        "id",
-        "name"
-      ],
       "properties": {
         "id": {
           "type": "string"
