@@ -21,8 +21,8 @@ func Decrypt(transaction models.Transaction) *models.Record {
 	var id = int64(1)
 	var pregnancy string
 	var hospitalized string
-	var duration, err = strconv.Atoi(string(amt[4]))
-	if err != nil {
+	var duration, durErr = strconv.Atoi(string(amt[4]))
+	if durErr != nil {
 		duration = 0
 	}
 	var death string

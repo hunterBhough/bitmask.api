@@ -13,34 +13,6 @@ func GetRecordsHandlerFunc(params operations.GetRecordsParams) middleware.Respon
 }
 
 // loop over transmission_types
-
-//func buildRecords() []*models.Record {
-//	records := []*models.Record{}
-//	for i := 0; i < 10; i++ {
-//		age := int64(29)
-//		outbreak := "No"
-//		death := "No"
-//		duration := int64(4)
-//		hospitalized := "Yes"
-//		id := int64(i)
-//		innc := "No"
-//		pregnancy := "Yes"
-//
-//
-//		record := models.Record{
-//			Age: age,
-//			CaseOutbreakIndicator: outbreak,
-//			Death: death,
-//			Duration: duration,
-//			Hospitalized: hospitalized,
-//			ID: id,
-//			ImmediateNationalNotifiableCondition: innc,
-//			PregnancyStatus: pregnancy,
-//		}
-//		records = append(records, &record)
-//	}
-//	return records
-//}
 func buildRecords() []*models.Record {
 	records := []*models.Record{}
 	transactionTempPointer := models.Transaction{
@@ -49,19 +21,7 @@ func buildRecords() []*models.Record {
 		Hash: "112424912",
 		BlockHash: "112424912",
 	}
-	//transactionTempPointer.Amount = 1.12424912
-	//transactionTempPointer.Time = int64(12424912)
-	//transactionTempPointer.Hash = "112424912"
-	//transactionTempPointer.BlockHash = "112424912"
 	for i := 0; i < 2; i++ {
-		//age := int64(29)
-		//outbreak := "No"
-		//death := "No"
-		//duration := int64(4)
-		//hospitalized := "Yes"
-		//id := int64(i)
-		//innc := "No"
-		//pregnancy := "Yes"
 		record := cryptography.Decrypt(transactionTempPointer)
 		records = append(records, record)
 	}
