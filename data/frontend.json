@@ -1,35 +1,52 @@
-{
-  "transmission_types": [
-    {
-      "name": "NNDSS Slush",
-      "records": [
-        {
-          "id": 1,
-          "disease": "AIDS"
-        },
-        {
-          "id": 2,
-          "disease": "Lupis"
-        }
-      ]
-    },
-    {
-      "name": "NNDSS Food borne",
-      "records": [
-
-      ]
-    },
-    {
-      "name": "NNDSS Airborne",
-      "records": [
-
-      ]
-    },
-    {
-      "name": "NNDSS Sexual",
-      "records": [
-
-      ]
-    }
-  ]
-}
+[
+  {
+    "name": "NNDSS Food Borne",
+    "records": [
+      {
+        "age": 49,
+        "case_outbreak_indicator": "Yes",
+        "death": "Yes",
+        "duration": 4,
+        "hospitalized": "Yes",
+        "id": 1,
+        "immediate_national_notifiable_condition": "No",
+        "pregnancy_status": "No"
+      },
+      {
+        "age": 49,
+        "case_outbreak_indicator": "Yes",
+        "death": "Yes",
+        "duration": 4,
+        "hospitalized": "Yes",
+        "id": 1,
+        "immediate_national_notifiable_condition": "No",
+        "pregnancy_status": "No"
+      }
+    ]
+  },
+  {
+    "name": "NNDSS Food Borne",
+    "records": [
+      {
+        "age": 49,
+        "case_outbreak_indicator": "Yes",
+        "death": "Yes",
+        "duration": 4,
+        "hospitalized": "Yes",
+        "id": 1,
+        "immediate_national_notifiable_condition": "No",
+        "pregnancy_status": "No"
+      },
+      {
+        "age": 49,
+        "case_outbreak_indicator": "Yes",
+        "death": "Yes",
+        "duration": 4,
+        "hospitalized": "Yes",
+        "id": 1,
+        "immediate_national_notifiable_condition": "No",
+        "pregnancy_status": "No"
+      }
+    ]
+  }
+]
