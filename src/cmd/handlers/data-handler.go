@@ -16,7 +16,7 @@ type ResponseType struct {
 // I realize this function is much too simple I am simply at a loss to
 
 func TransmuteJSON() ResponseType {
-	file, e := ioutil.ReadFile("/Users/hhough/code/go/src/github.com/hunterBhough/go-doge/data/database.json")
+	file, e := ioutil.ReadFile("/go/src/github.com/hunterBhough/go-doge/data/database.json")
 	if e != nil {
 		fmt.Printf("File error: %v\n", e)
 		os.Exit(1)
