@@ -146,7 +146,7 @@ func init() {
     "Wallet": {
       "type": "object",
       "properties": {
-        "id": {
+        "address": {
           "type": "string"
         },
         "name": {

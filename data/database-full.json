@@ -1,0 +1,20 @@
+{
+  "Wallets": [
+    {
+      "Name": "NNDSS Slush",
+      "Address": "D9YhA3RwyrjU9ju6v1Xbiu2HHzXPStbbZH"
+    },
+    {
+      "Name": "NNDSS Food borne",
+      "Address": "DDpH2tFG7PgdwX78Y6KcYhLLnkUqxXjrPG"
+    },
+    {
+      "Name": "NNDSS Airborne",
+      "Address": "DKZddE5XP6uZTQXUegaqpPhxZEbeYkfPkK"
+    },
+    {
+      "Name": "NNDSS Sexual",
+      "Address": "D7ByzZoggpgXVowcefUvjJeGVDehKkRmkq"
+    }
+  ]
+}

@@ -1,37 +1,16 @@
 {
-  "wallets": [
+  "Wallets": [
     {
-      "name": "NNDSS Slush",
-      "id": "D9YhA3RwyrjU9ju6v1Xbiu2HHzXPStbbZH",
-      "transactions": [
-        { "hash": "122030923" },
-        { "hash": "122323423" }
-      ]
+      "Name": "NNDSS Food borne",
+      "Data": {
+        "Address": "DSnFEMUgqi1Y6x3akQFYX8az8KPa8deAnU"
+      }
     },
     {
-      "name": "NNDSS Food borne",
-      "id": "DDpH2tFG7PgdwX78Y6KcYhLLnkUqxXjrPG",
-      "transactions": [
-        { "hash": "120309235" },
-        { "hash": "122030253" }
-      ]
-    },
-    {
-      "name": "NNDSS Airborne",
-      "id": "DLnBFSU97ULkHtoXaFwjMbFM7X4p5xDZpt",
-      "transactions": [
-        { "hash": "122030342" },
-        { "hash": "122014235" }
-      ]
-    },
-    {
-      "name": "NNDSS Sexual",
-      "id": "D7ByzZoggpgXVowcefUvjJeGVDehKkRmkq",
-      "transactions": [
-        { "hash": "122030923" },
-        { "hash": "120334234" },
-        { "hash": "122030925" }
-      ]
+      "Name": "NNDSS Airborne",
+      "Data": {
+        "Address": "DKZddE5XP6uZTQXUegaqpPhxZEbeYkfPkK"
+      }
     }
   ]
 }

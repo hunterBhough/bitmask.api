@@ -15,16 +15,68 @@ import (
 // Wallet wallet
 // swagger:model Wallet
 type Wallet struct {
-
-	// id
-	ID string `json:"id,omitempty"`
-
-	// name
-	Name string `json:"name,omitempty"`
-
-	// transactions
-	Transactions WalletTransactions `json:"transactions"`
+	Name	string
+	Status  string `json:"status"`
+	Data           `json:"data"`
+	Code    int    `json:"code"`
+	Message string `json:"message"`
 }
+
+type Data struct {
+	Network       string `json:"network"`
+	Address       string `json:"address"`
+	Balance       string `json:"balance"`
+	ReceivedValue string `json:"received_value"`
+	PendingValue  string `json:"pending_value"`
+	TotalTxs      int    `json:"total_txs"`
+	Txs           []Transaction       `json:"txs"`
+}
+type Transaction struct {
+	Txid          string `json:"txid"`
+	BlockNo       int    `json:"block_no"`
+	Confirmations int    `json:"confirmations"`
+	Time          int    `json:"time"`
+	Incoming             `json:"incoming"`
+	//Outgoing             `json:"outgoing,omitempty"`
+}
+
+
+type Incoming struct {
+	OutputNo  int         `json:"output_no"`
+	Value     string      `json:"value"`
+	//Inputs                `json:"inputs"`
+	//ReqSigs   int         `json:"req_sigs"`
+	//ScriptAsm string      `json:"script_asm"`
+	//ScriptHex string      `json:"script_hex"`
+}
+
+//type Inputs []struct {
+//	InputNo int    `json:"input_no"`
+//	Address string `json:"address"`
+//	ReceivedFrom   `json:"received_from"`
+//}
+
+//type ReceivedFrom struct {
+//	Txid     string `json:"txid"`
+//	OutputNo int    `json:"output_no"`
+//}
+
+//type Outgoing struct {
+//	Value string `json:"value"`
+//	Outputs      `json:"outputs"`
+//}
+
+//type Outputs []struct {
+//	OutputNo int    `json:"output_no"`
+//	Address  string `json:"address"`
+//	Value    string `json:"value"`
+//	Spent           `json:"spent"`
+//}
+
+//type Spent struct {
+//	Txid    string `json:"txid"`
+//	InputNo int    `json:"input_no"`
+//}
 
 // Validate validates this wallet
 func (m *Wallet) Validate(formats strfmt.Registry) error {

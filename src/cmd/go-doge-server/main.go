@@ -30,6 +30,8 @@ func main() {
 	server := restapi.NewServer(api)
 	defer server.Shutdown()
 
+	flag.Parse()
+
 	server.Port = *portFlag
 	parser := flags.NewParser(server, flags.Default)
 	parser.ShortDescription = "Go-DOGE"

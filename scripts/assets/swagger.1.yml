@@ -43,7 +43,7 @@ definitions:
     properties:
       name:
         type: "string"
-      id:
+      address:
         type: "string"
       transactions:
         type: "array"

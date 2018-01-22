@@ -14,7 +14,7 @@ import (
 
 // Transaction transaction
 // swagger:model Transaction
-type Transaction struct {
+type TransactionOld struct {
 
 	// amount
 	Amount float64 `json:"amount,omitempty"`

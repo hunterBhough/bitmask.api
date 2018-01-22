@@ -8,21 +8,14 @@ import (
 )
 
 func GetRecordsHandlerFunc(params operations.GetRecordsParams) middleware.Responder {
-
 	return handle()
 }
 
 // loop over transmission_types
-func buildRecords() []*models.Record {
+func buildRecords(wallet models.Wallet) []*models.Record {
 	records := []*models.Record{}
-	transactionTempPointer := models.Transaction{
-		Amount:  1.12424912,
-		Time: int64(12424912),
-		Hash: "112424912",
-		BlockHash: "112424912",
-	}
-	for i := 0; i < 2; i++ {
-		record := cryptography.Decrypt(transactionTempPointer)
+	for i := 0; i < wallet.TotalTxs; i++ {
+		record := cryptography.Decrypt(wallet.Txs[i].Incoming.Value)
 		records = append(records, record)
 	}
 	return records
@@ -35,14 +28,18 @@ func buildTransmissionTypeRecords(records []*models.Record) models.TransmissionT
 // loop over wallets and build records into each of them
 func handle() middleware.Responder {
 	payload := []models.TransmissionType{}
+	//input
+	wallets := DogeHandler()
+	//output
 	transmissionTypeRecords := models.TransmissionTypeRecords{}
 
-	for j := 0; j < 2; j++ {
-		name := "NNDSS Food Borne"
-		transmissionTypeRecords = buildTransmissionTypeRecords(buildRecords())
+	for i := 0; i < len(wallets); i++ {
+		if wallets[i].TotalTxs != 0 {
+			transmissionTypeRecords = buildTransmissionTypeRecords(buildRecords(wallets[i]))
+		}
 
 		transmissionType := models.TransmissionType{
-			Name: name,
+			Name:    wallets[i].Name,
 			Records: transmissionTypeRecords,
 		}
 		payload = append(payload, transmissionType)

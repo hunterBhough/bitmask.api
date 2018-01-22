@@ -16,46 +16,45 @@ import (
 */
 
 
-func Decrypt(transaction models.Transaction) *models.Record {
-	amt := strconv.FormatFloat(transaction.Amount, 'f', -1, 64)
+func Decrypt(value string) *models.Record {
 	var id = int64(1)
 	var pregnancy string
 	var hospitalized string
-	var duration, durErr = strconv.Atoi(string(amt[4]))
+	var duration, durErr = strconv.Atoi(string(value[4]))
 	if durErr != nil {
 		duration = 0
 	}
 	var death string
-	var age, ageErr = strconv.Atoi(string(amt[6]) + string(amt[7]))
+	var age, ageErr = strconv.Atoi(string(value[6]) + string(value[7]))
 	if ageErr != nil {
 		age = 0
 	}
 	var innc string
 	var outbreak string
 
-	if string(amt[2]) == "1"{
+	if string(value[2]) == "1"{
 		pregnancy = "No"
-	} else if string(amt[2]) == "2" {
+	} else if string(value[2]) == "2" {
 		pregnancy = "Yes"
 	}
-	if string(amt[3]) == "1" {
+	if string(value[3]) == "1" {
 		hospitalized = "No"
-	} else if string(amt[3]) == "2" {
+	} else if string(value[3]) == "2" {
 		hospitalized = "Yes"
 	}
-	if string(amt[5]) == "1" {
+	if string(value[5]) == "1" {
 		death = "No"
-	} else if string(amt[5]) == "2" {
+	} else if string(value[5]) == "2" {
 		death = "Yes"
 	}
-	if string(amt[8]) == "1" {
+	if string(value[8]) == "1" {
 		innc = "No"
-	} else if string(amt[8]) == "2" {
+	} else if string(value[8]) == "2" {
 		innc = "Yes"
 	}
-	if string(amt[9]) == "1" {
+	if string(value[9]) == "1" {
 		outbreak = "No"
-	} else if string(amt[9]) == "2" {
+	} else if string(value[9]) == "2" {
 		outbreak = "Yes"
 	}
 
