@@ -32,9 +32,9 @@ func Decrypt(value string) *models.Record {
 	var innc string
 	var outbreak string
 
-	if string(value[2]) == "1"{
+	if string(value[2]) == "0"{
 		pregnancy = "No"
-	} else if string(value[2]) == "2" {
+	} else if string(value[2]) == "1" {
 		pregnancy = "Yes"
 	}
 	if string(value[3]) == "1" {
