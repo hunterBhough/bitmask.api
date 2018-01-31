@@ -18,6 +18,7 @@ import (
 // Make sure not to overwrite this file after you generated it because all your edits would be lost!
 
 var portFlag = flag.Int("port", 3000, "Port to run this service on")
+var hostFlag = flag.String("host", "0.0.0.0", "Host to run this service on")
 
 func main() {
 
@@ -33,6 +34,7 @@ func main() {
 	flag.Parse()
 
 	server.Port = *portFlag
+	server.Host = *hostFlag
 	parser := flags.NewParser(server, flags.Default)
 	parser.ShortDescription = "Go-DOGE"
 	parser.LongDescription = "An api for moving data between a form and dogechain through a bitmask"
