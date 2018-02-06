@@ -1,5 +1,9 @@
 package handlers
 
+// Fill the wallet struct with wallet names and addresses
+// Dependency: main function
+// dumb component
+
 import (
 	"fmt"
 	"os"
@@ -16,7 +20,9 @@ type ResponseType struct {
 // I realize this function is much too simple I am simply at a loss to
 
 func TransmuteJSON() ResponseType {
-	file, e := ioutil.ReadFile("/go/src/github.com/hunterBhough/go-doge/data/database.json")
+	var response ResponseType
+
+	file, e := ioutil.ReadFile("/Users/hhough/code/go/src/github.com/hunterBhough/go-doge/data/database.json")
 	if e != nil {
 		fmt.Printf("File error: %v\n", e)
 		os.Exit(1)
@@ -24,7 +30,6 @@ func TransmuteJSON() ResponseType {
 
 	//m := new(Dispatch)
 	//var m interface{}
-	var response ResponseType
 	e = json.Unmarshal(file, &response)
 	if e != nil {
 		fmt.Printf("Unmarshal error: %v\n", e)

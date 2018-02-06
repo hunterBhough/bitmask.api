@@ -1,74 +1,139 @@
 package cryptography
 
+/* Takes in the value from the transaction
+	Validates Input
+	Returns Record
+*/
+// Dependency: response-handler.go
+
+
 import (
 	"github.com/hunterBhough/go-doge/src/models"
 	"strconv"
 )
 
-/*	input
-	------
-	Transaction
 
-	==========================================
-	output
-	-------
-	Record
-*/
+func Decrypt(value string, id int64) (*models.Record, models.Error) {
+	var pregnancy,
+	hospitalized,
+	death,
+	innc,
+	outbreak string
 
+	var duration, age int64
 
-func Decrypt(value string) *models.Record {
-	var id = int64(1)
+	var err models.Error
+	var record models.Record
+
+	pregnancy, err = getPregnancy(string(value[2]))
+	if err.Status != 0 {
+		return &record, err
+	}
+
+	hospitalized, err = getBinaryAnswer(string(value[3]))
+	if err.Status != 0 {
+		return &record, err
+	}
+
+	duration, err = getDuration(string(value[4]))
+	if err.Status != 0 {
+		return &record, err
+	}
+
+	death, err = getBinaryAnswer(string(value[5]))
+	if err.Status != 0 {
+		return &record, err
+	}
+
+	age, err = getAge(string(value[6]), string(value[7]))
+	if err.Status != 0 {
+		return &record, err
+	}
+
+	innc, err = getBinaryAnswer(string(value[8]))
+	if err.Status != 0 {
+		return &record, err
+	}
+
+	outbreak, err = getBinaryAnswer(string(value[9]))
+	if err.Status != 0 {
+		return &record, err
+	}
+
+	if err.Message == "" {
+		record = models.Record{
+			Age:                                  age,
+			CaseOutbreakIndicator:                outbreak,
+			Death:                                death,
+			Duration:                             duration,
+			Hospitalized:                         hospitalized,
+			ID:                                   id,
+			ImmediateNationalNotifiableCondition: innc,
+			PregnancyStatus:                      pregnancy,
+		}
+	}
+
+	return &record, err
+}
+
+func getBinaryAnswer(digit string) (string, models.Error) {
+	var result string
+	var err models.Error
+
+	if digit == "1" {
+		result = "No"
+	} else if digit == "2" {
+		result = "Yes"
+	} else {
+		err.Message += "invalid input \n"
+		err.Status = 1
+	}
+
+	return result, err
+}
+
+func getPregnancy(digit string) (string, models.Error) {
 	var pregnancy string
-	var hospitalized string
-	var duration, durErr = strconv.Atoi(string(value[4]))
-	if durErr != nil {
-		duration = 0
-	}
-	var death string
-	var age, ageErr = strconv.Atoi(string(value[6]) + string(value[7]))
-	if ageErr != nil {
-		age = 0
-	}
-	var innc string
-	var outbreak string
+	var err models.Error
 
-	if string(value[2]) == "0"{
+	if digit == "0" {
 		pregnancy = "No"
-	} else if string(value[2]) == "1" {
+	} else if digit == "1" {
 		pregnancy = "Yes"
-	}
-	if string(value[3]) == "1" {
-		hospitalized = "No"
-	} else if string(value[3]) == "2" {
-		hospitalized = "Yes"
-	}
-	if string(value[5]) == "1" {
-		death = "No"
-	} else if string(value[5]) == "2" {
-		death = "Yes"
-	}
-	if string(value[8]) == "1" {
-		innc = "No"
-	} else if string(value[8]) == "2" {
-		innc = "Yes"
-	}
-	if string(value[9]) == "1" {
-		outbreak = "No"
-	} else if string(value[9]) == "2" {
-		outbreak = "Yes"
+	} else {
+		err.Message += "invalid pregnancy input \n"
+		err.Status = 1
 	}
 
+	return pregnancy, err
+}
 
-	record := models.Record{
-		Age: int64(age),
-		CaseOutbreakIndicator: outbreak,
-		Death: death,
-		Duration: int64(duration),
-		Hospitalized: hospitalized,
-		ID: id,
-		ImmediateNationalNotifiableCondition: innc,
-		PregnancyStatus: pregnancy,
+func getDuration(digit string) (int64, models.Error) {
+	var duration int64
+	var err models.Error
+
+	var durInt, durErr = strconv.Atoi(digit)
+	if durErr != nil {
+		err.Message += "invalid duration input \n"
+		err.Status = 1
+	} else {
+		duration = int64(durInt)
 	}
 
-	return &record
+	return duration, err
+}
+
+func getAge(tens string, singles string) (int64, models.Error) {
+	var age int64
+	var err models.Error
+
+	var ageInt, ageErr = strconv.Atoi(tens + singles)
+	if ageErr != nil {
+		err.Message += "invalid age input \n"
+		err.Status = 1
+	} else {
+		age = int64(ageInt)
+	}
+
+	return age, err
 }

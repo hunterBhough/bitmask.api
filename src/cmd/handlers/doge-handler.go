@@ -1,8 +1,11 @@
 package handlers
 
+// Get a list of transactions for each wallet
+// Dependency: Wallet generation in data-handler.go
+// smart component
+
 import (
 	"github.com/hunterBhough/go-doge/src/models"
-	"fmt"
 	"io/ioutil"
 	"encoding/json"
 	"net/http"
@@ -10,31 +13,30 @@ import (
 
 var network = "DOGE"
 
-// for each wallet
-// for each transaction
-//build transactions into
-
-func DogeHandler() []models.Wallet {
+func DogeHandler() ([]models.Wallet, []models.Error) {
 	dat := TransmuteJSON()
-	//wallets := convertWallets(storeTransactions(dat.Wallets))
-	wallets := getWalletDetails(dat.Wallets)
-	return wallets
+	wallets, errors := getWalletDetails(dat.Wallets)
+	return wallets, errors
 }
 
-func getWalletDetails(wallets []models.Wallet) []models.Wallet {
-	payload := []models.Wallet{}
+func getWalletDetails(wallets []models.Wallet) ([]models.Wallet, []models.Error) {
+	var payload []models.Wallet
+	var errors []models.Error
 
 	for i := 0; i < len(wallets); i++ {
 		builtURL := buildAddressUrl(network, wallets[i].Address)
-		response := fillWallet(builtURL)
-		wallet := models.Wallet{
-			Name: wallets[i].Name,
-			Data: response.Data,
+		response, err := fillWallet(builtURL)
+		if err.Status == 0 {
+			wallet := models.Wallet{
+				Name: wallets[i].Name,
+				Data: response.Data,
+			}
+			payload = append(payload, wallet)
+		} else {
+			errors = append(errors, err)
 		}
-		//fmt.Println(response.Data.Txs[0].Incoming.Value)
-		payload = append(payload, wallet)
 	}
-	return payload
+	return payload, errors
 }
 
 func buildAddressUrl(network string, address string) string {
@@ -42,60 +44,25 @@ func buildAddressUrl(network string, address string) string {
 	return u
 }
 
-func fillWallet(s string) models.Wallet {
-	resp, err := http.Get(s)
-	if err != nil {
-		// handle error
-		fmt.Println("error:", err)
+func fillWallet(s string) (models.Wallet, models.Error) {
+	var err models.Error
+	var response models.Wallet
+
+	resp, e := http.Get(s)
+	if e != nil {
+		err = models.Error{
+			Status:  1,
+			Message: "failed to get response from Doge",
+		}
 	}
 	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	var response models.Wallet
-	err = json.Unmarshal(body, &response)
-	if err != nil {
-		fmt.Println("error:", err)
+	body, e := ioutil.ReadAll(resp.Body)
+	e = json.Unmarshal(body, &response)
+	if e != nil {
+		err = models.Error{
+			Status:  2,
+			Message: "failed to get unmarshal response",
+		}
 	}
-	return response
+	return response, err
 }
-
-
-
-
-//func convertWallets(wallets []models.DogeWalletResponse) []models.Wallet {
-//	payload := []models.Wallet{}
-//
-//	for i := 0; i < len(wallets); i++ {
-//		wallet := models.Wallet{
-//			Transactions: convertTransactions(wallets[i]),
-//		}
-//		payload = append(payload, wallet)
-//	}
-//	return payload
-//}
-//
-//func convertTransactions(wallet models.DogeWalletResponse) models.WalletTransactions {
-//	payload := []models.Transaction{}
-//	newPayload := models.WalletTransactions{}
-//	for j := 0; j < len(wallet.Data.Txs); j++ {
-//		value, err := strconv.ParseFloat(wallet.Data.Txs[j].Incoming.Value, 64)
-//		if err != nil {
-//			// todo handle error
-//			fmt.Println("error:", err)
-//		} else {
-//			transaction := &models.Transaction{
-//				Amount: value,
-//				Hash: wallet.Data.Txs[j].Txid,
-//				Time: int64(wallet.Data.Txs[j].Time),
-//			}
-//			payload = append(payload, *transaction)
-//			newPayload = models.WalletTransactions{
-//				transaction,
-//			}
-//		}
-//	}
-//	newPayload = models.WalletTransactions{
-//		*transaction
-//	}
-//	return newPayload
-//
-//}
