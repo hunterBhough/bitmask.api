@@ -6,12 +6,10 @@ package cryptography
 */
 // Dependency: response-handler.go
 
-
 import (
 	"github.com/hunterBhough/go-doge/src/models"
 	"strconv"
 )
-
 
 func Decrypt(value string, id int64) (*models.Record, models.Error) {
 	var pregnancy,

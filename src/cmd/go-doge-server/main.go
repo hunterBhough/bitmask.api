@@ -7,8 +7,8 @@ import (
 	"os"
 	"flag"
 
-	loads "github.com/go-openapi/loads"
-	flags "github.com/jessevdk/go-flags"
+	"github.com/go-openapi/loads"
+	"github.com/jessevdk/go-flags"
 
 	"github.com/hunterBhough/go-doge/src/restapi"
 	"github.com/hunterBhough/go-doge/src/restapi/operations"

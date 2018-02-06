@@ -6,7 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
@@ -15,7 +15,7 @@ import (
 // Wallet wallet
 // swagger:model Wallet
 type Wallet struct {
-	Name	string
+	Name    string
 	Status  string `json:"status"`
 	Data           `json:"data"`
 	Code    int    `json:"code"`
@@ -23,13 +23,13 @@ type Wallet struct {
 }
 
 type Data struct {
-	Network       string `json:"network"`
-	Address       string `json:"address"`
-	Balance       string `json:"balance"`
-	ReceivedValue string `json:"received_value"`
-	PendingValue  string `json:"pending_value"`
-	TotalTxs      int    `json:"total_txs"`
-	Txs           []Transaction       `json:"txs"`
+	Network       string        `json:"network"`
+	Address       string        `json:"address"`
+	Balance       string        `json:"balance"`
+	ReceivedValue string        `json:"received_value"`
+	PendingValue  string        `json:"pending_value"`
+	TotalTxs      int           `json:"total_txs"`
+	Txs           []Transaction `json:"txs"`
 }
 type Transaction struct {
 	Txid          string `json:"txid"`
@@ -40,10 +40,9 @@ type Transaction struct {
 	//Outgoing             `json:"outgoing,omitempty"`
 }
 
-
 type Incoming struct {
-	OutputNo  int         `json:"output_no"`
-	Value     string      `json:"value"`
+	OutputNo int    `json:"output_no"`
+	Value    string `json:"value"`
 	//Inputs                `json:"inputs"`
 	//ReqSigs   int         `json:"req_sigs"`
 	//ScriptAsm string      `json:"script_asm"`

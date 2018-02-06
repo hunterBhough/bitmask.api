@@ -13,7 +13,7 @@ import (
 )
 
 type ResponseType struct {
-	Wallets   []models.Wallet
+	Wallets []models.Wallet
 }
 
 // Main function

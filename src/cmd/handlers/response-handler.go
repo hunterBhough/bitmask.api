@@ -11,35 +11,6 @@ import (
 	"fmt"
 )
 
-
-//func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-//	payload := []models.TransmissionType{}
-//	//input
-//	wallets := DogeHandler()
-//	//output
-//	transmissionTypeRecords := models.TransmissionTypeRecords{}
-//
-//	for i := 0; i < len(wallets); i++ {
-//		if wallets[i].TotalTxs != 0 {
-//			transmissionTypeRecords = buildTransmissionTypeRecords(buildRecords(wallets[i]))
-//		}
-//
-//		transmissionType := models.TransmissionType{
-//			Name:    wallets[i].Name,
-//			Records: transmissionTypeRecords,
-//		}
-//		payload = append(payload, transmissionType)
-//	}
-//	body, err := json.Marshal(payload)
-//	if err != nil {
-//		λ.MarshalError(err)
-//	}
-//	return events.APIGatewayProxyResponse{
-//		Body:       string(body),
-//		StatusCode: 200,
-//	}, nil
-//}
-
 func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	var payload []models.TransmissionType
 	//input
@@ -68,7 +39,7 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 		λ.MarshalError(err)
 	}
 	return events.APIGatewayProxyResponse{
-		Body:      string(body),
+		Body:       string(body),
 		StatusCode: 200,
 	}, nil
 }
@@ -92,6 +63,7 @@ func buildTransmissionTypeRecords(records []*models.Record) models.TransmissionT
 func main() {
 	lambda.Start(Handler)
 }
+
 // swagger server code
 
 //func GetRecordsHandlerFunc(params operations.GetRecordsParams) middleware.Responder {
