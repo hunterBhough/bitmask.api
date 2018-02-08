@@ -9,6 +9,7 @@ package cryptography
 import (
 	"github.com/hunterBhough/go-doge/src/models"
 	"strconv"
+	"fmt"
 )
 
 func Decrypt(value string, id int64) (*models.Record, models.Error) {
@@ -24,39 +25,50 @@ func Decrypt(value string, id int64) (*models.Record, models.Error) {
 	var record models.Record
 
 	pregnancy, err = getPregnancy(string(value[2]))
+	fmt.Println(err.Status)
 	if err.Status != 0 {
 		return &record, err
 	}
+	fmt.Println("pregenancy: " + pregnancy)
 
 	hospitalized, err = getBinaryAnswer(string(value[3]))
+	fmt.Println(err.Status)
 	if err.Status != 0 {
 		return &record, err
 	}
+	fmt.Println("hospitalized: " + hospitalized)
 
 	duration, err = getDuration(string(value[4]))
 	if err.Status != 0 {
 		return &record, err
 	}
+	fmt.Println("duration: ")
+	fmt.Print(duration)
 
 	death, err = getBinaryAnswer(string(value[5]))
 	if err.Status != 0 {
 		return &record, err
 	}
+	fmt.Println("death: " + death)
 
 	age, err = getAge(string(value[6]), string(value[7]))
 	if err.Status != 0 {
 		return &record, err
 	}
+	fmt.Println("age: ")
+	fmt.Print(age)
 
 	innc, err = getBinaryAnswer(string(value[8]))
 	if err.Status != 0 {
 		return &record, err
 	}
+	fmt.Println("innc: " + innc)
 
 	outbreak, err = getBinaryAnswer(string(value[9]))
 	if err.Status != 0 {
 		return &record, err
 	}
+	fmt.Println("outbreak: " + outbreak)
 
 	if err.Message == "" {
 		record = models.Record{
@@ -90,22 +102,6 @@ func getBinaryAnswer(digit string) (string, models.Error) {
 	return result, err
 }
 
-func getPregnancy(digit string) (string, models.Error) {
-	var pregnancy string
-	var err models.Error
-
-	if digit == "0" {
-		pregnancy = "No"
-	} else if digit == "1" {
-		pregnancy = "Yes"
-	} else {
-		err.Message += "invalid pregnancy input \n"
-		err.Status = 1
-	}
-
-	return pregnancy, err
-}
-
 func getDuration(digit string) (int64, models.Error) {
 	var duration int64
 	var err models.Error
@@ -134,4 +130,20 @@ func getAge(tens string, singles string) (int64, models.Error) {
 	}
 
 	return age, err
+}
+
+func getPregnancy(digit string) (string, models.Error) {
+	var pregnancy string
+	var err models.Error
+
+	if digit == "0" {
+		pregnancy = "No"
+	} else if digit == "1" {
+		pregnancy = "Yes"
+	} else {
+		err.Message += "invalid pregnancy input \n"
+		err.Status = 1
+	}
+
+	return pregnancy, err
 }
